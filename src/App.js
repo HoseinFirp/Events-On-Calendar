@@ -37,8 +37,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          {isLogin?<Route path="/profile" element={<Profile />} />:<PageNotFound/>}
-          {isLogin?<Route path="/profile/submit-events" element={<SabteRooyadad />} />:<PageNotFound/>}
+          {isLogin?<Route path="/profile" element={<Profile />} />:<Route path="*" element={<PageNotFound />} />}
+          {isLogin?<Route path="/profile/submit-events" element={<SabteRooyadad />} />:<Route path="*" element={<PageNotFound />} />}
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
