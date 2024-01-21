@@ -1,17 +1,38 @@
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { updateToken } from "../user/userSlice";
 
 function Login() {
   const [capVal, setCapVal] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit =  (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username);
     console.log(password);
   };
- 
+
+  const dispatch = useDispatch();
+
+  const req = async () => {
+    try {
+      const { data } = await axios.post(
+        "http://appback.liara.run/Login",
+        {
+          username: `${username}`,
+          password: `${password}`,
+        }
+      );
+      dispatch(updateToken(data.user.token));
+
+      console.log(data.user);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
   return (
     <div
       className={`flex rounded-lg items-center flex-col  h-96 gap-5 w-96  mt-20  bg-slate-950 ml-auto mr-auto`}
@@ -31,7 +52,7 @@ function Login() {
         </div>
         <div className="flex gap-4 content-center justify-between w-full">
           <input
-            type="username"
+            type="password"
             className="rounded-md pl-2 pt-1 pr-2 pb-1"
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -51,6 +72,7 @@ function Login() {
         <button
           className="btn mt-3"
           disabled={!capVal || !username || !password}
+          onClick={req}
         >
           <Link to="/profile">ادامه</Link>
         </button>

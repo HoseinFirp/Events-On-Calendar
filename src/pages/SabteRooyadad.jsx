@@ -7,7 +7,7 @@ function SabteRooyadad() {
       <label
         className={`flex items-center flex-col pt-20 h-screen gap-5 w-80 ml-auto mr-auto`}
       >
-        <div className="flex gap-5">
+        <div className="flex gap-5 ">
           <select
             value={selectedNimsaal}
             onChange={(e) => setSelectedNimsaal(e.target.value)}
