@@ -31,13 +31,15 @@ function Signup() {
     }
   }, [password, rePassword]);
 
+
+
   const req = async () => {
     // setShowError("");
     // setIsLoading(true);
-    if (password !== rePassword) {
+    // if (password !== rePassword) {
       // setIsDisabled3(true);
-      alert(`Your Re-Password does not match with Your Password`);
-    }
+    //   alert(`Your Re-Password does not match with Your Password`);
+    // }
     // else setShowError1("");
     try {
       const { data } = await axios.post("https://appback.liara.run/Signup", {
@@ -46,6 +48,7 @@ function Signup() {
         confirmPassword: `${rePassword}`,
       });
       console.log(data);
+      console.log(username,password,rePassword)
       // setIsDisabled5(false);
       alert("User Created");
     } catch (error) {
@@ -56,6 +59,7 @@ function Signup() {
     }
     // setIsLoading(false);
   };
+  
   return (
     <div
       className={`flex rounded-lg  items-center flex-col bg-slate-950  h-96 gap-5 w-96  mt-20   ml-auto mr-auto`}

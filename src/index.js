@@ -7,8 +7,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import userReducer from "./user/userSlice";
 import storage from "redux-persist/lib/storage";
-
-
+import { PersistGate } from "redux-persist/integration/react";
 
 const persistConfig = {
   key: "user",
@@ -20,7 +19,6 @@ const persistedUserReducer = persistReducer(persistConfig, userReducer);
 const store = configureStore({
   reducer: {
     user: persistedUserReducer,
-  
   },
 });
 
@@ -32,7 +30,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

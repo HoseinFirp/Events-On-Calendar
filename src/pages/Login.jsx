@@ -19,13 +19,10 @@ function Login() {
 
   const req = async () => {
     try {
-      const { data } = await axios.post(
-        "http://appback.liara.run/Login",
-        {
-          username: `${username}`,
-          password: `${password}`,
-        }
-      );
+      const { data } = await axios.post("http://appback.liara.run/Login", {
+        username: `${username}`,
+        password: `${password}`,
+      });
       dispatch(updateToken(data.user.token));
 
       console.log(data.user);
@@ -38,12 +35,14 @@ function Login() {
       className={`flex rounded-lg items-center flex-col  h-96 gap-5 w-96  mt-20  bg-slate-950 ml-auto mr-auto`}
     >
       <form
+        id="login"
         onSubmit={handleSubmit}
         className={`flex items-center flex-col rounded-lg  h-screen gap-3 w-80 ml-auto mr-auto`}
       >
         <h2 className="text-xl pt-2">ورود</h2>
         <div className="flex gap-4  mt-4 content-center justify-between w-full pt-2 ">
           <input
+            id="username"
             type="username"
             className="rounded-md pl-2 pt-1 pr-2 pb-1"
             onChange={(e) => setUsername(e.target.value)}
@@ -52,6 +51,7 @@ function Login() {
         </div>
         <div className="flex gap-4 content-center justify-between w-full">
           <input
+            id="password"
             type="password"
             className="rounded-md pl-2 pt-1 pr-2 pb-1"
             onChange={(e) => setPassword(e.target.value)}
