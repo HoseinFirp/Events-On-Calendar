@@ -95,7 +95,8 @@ function Signup() {
           />
           <p className="flex self-center">تکرار پسورد </p>
         </div>
-
+        
+        {/* inja token begzarid */}
         <ReCAPTCHA
           sitekey="6Lc-6FUpAAAAAO2j2J6ndH7L5Mbg9a_AcpDPsTuF"
           onChange={(val) => setCapVal(val)}

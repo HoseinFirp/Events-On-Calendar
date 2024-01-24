@@ -61,7 +61,7 @@ function Login() {
           <p className="flex self-center">پسورد </p>
         </div>
 
-        {/* token inja bezar */}
+        {/* inja token begzarid */}
         <ReCAPTCHA
           sitekey="6Lc-6FUpAAAAAO2j2J6ndH7L5Mbg9a_AcpDPsTuF"
           onChange={(val) => setCapVal(val)}
