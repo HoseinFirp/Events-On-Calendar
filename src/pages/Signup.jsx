@@ -41,14 +41,15 @@ function Signup() {
     //   alert(`Your Re-Password does not match with Your Password`);
     // }
     // else setShowError1("");
+    
+    console.log(username,password,rePassword)
     try {
-      const { data } = await axios.post("https://appback.liara.run/Signup", {
+      const { data } = await axios.post("https://appback.liara.run/user/Signup", {
         username: `${username}`,
         password: `${password}`,
         confirmPassword: `${rePassword}`,
       });
       console.log(data);
-      console.log(username,password,rePassword)
       // setIsDisabled5(false);
       alert("User Created");
     } catch (error) {
@@ -59,7 +60,7 @@ function Signup() {
     }
     // setIsLoading(false);
   };
-  
+
   return (
     <div
       className={`flex rounded-lg  items-center flex-col bg-slate-950  h-96 gap-5 w-96  mt-20   ml-auto mr-auto`}

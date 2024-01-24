@@ -12,19 +12,19 @@ function Profile() {
       </div>
       <div className="grid grid-cols-1 justify-items-center gap-y-10 mt-40 md:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-4">
-          <p className="flex self-center ">ثبت رویداد برنامه های درسی</p>
+          <p className="flex self-center ">تقویم</p>
           <button className="btn">
             <Link to="/profile/submit-events">برو </Link>
           </button>
         </div>
         <div className="flex flex-col gap-4">
-          <p className="flex self-center ">ثبت یک رویداد برنامه درسی</p>
+          <p className="flex self-center ">گزارش</p>
           <button className="btn">
             <Link to="/profile/submit-events">برو </Link>
           </button>
         </div>
         <div className="flex flex-col gap-4">
-          <p className="flex self-center "> ثبت گزارش برنامه کاری روز</p>
+          <p className="flex self-center ">ایونت ها</p>
           <button className="btn">
             <Link to="/profile/submit-events">برو </Link>
           </button>

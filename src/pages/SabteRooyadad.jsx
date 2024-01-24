@@ -1,12 +1,14 @@
 import { useState } from "react";
+import MyCalendar from "./Calendar";
 
 function SabteRooyadad() {
   const [selectedNimsaal, setSelectedNimsaal] = useState("1402-3");
   return (
     <div>
-      <label
-        className={`flex items-center flex-col pt-20 h-screen gap-5 w-80 ml-auto mr-auto`}
+      {/* <label
+        className={`flex items-center flex-col gap-5 w-80 ml-auto mr-auto`}
       >
+      
         <div className="flex gap-5 ">
           <select
             value={selectedNimsaal}
@@ -40,7 +42,8 @@ function SabteRooyadad() {
           </select>
           <p className="flex self-center">انتخاب نیمسال تحصیلی</p>
         </div>
-      </label>
+      </label> */}
+      <MyCalendar />
     </div>
   );
 }

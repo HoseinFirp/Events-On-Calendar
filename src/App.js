@@ -6,11 +6,23 @@ import Navbar from "./pages/Navbar";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import SabteRooyadad from "./pages/SabteRooyadad";
-import Profile from "./pages/Profile";
+// import Profile from "./pages/Profile";
+import Report from "./pages/Report";
+import Events from "./pages/Events";
+import EventForm from "./pages/EventForm";
 import { useUser } from "./user/userSlice";
 import { useEffect, useState } from "react";
+import ProfileSidebar from "./pages/ProfileSidebar";
+import ProfileEmpty from "./pages/ProfileEmpty";
+import GetOneList from "./pages/GetOneList";
 
-
+function ProfileLayout() {
+  return (
+    <div className="flex ">
+      <ProfileSidebar />
+    </div>
+  );
+}
 function AppLayOut() {
   return (
     <div>
@@ -23,6 +35,7 @@ function AppLayOut() {
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const user = useUser();
+
   useEffect(() => {
     if (user.token) {
       setIsLogin(true);
@@ -30,6 +43,7 @@ function App() {
       setIsLogin(false);
     }
   }, [user.token]);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -37,13 +51,22 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          {isLogin?<Route path="/profile" element={<Profile />} />:<Route path="*" element={<PageNotFound />} />}
-          {isLogin?<Route path="/profile/submit-events" element={<SabteRooyadad />} />:<Route path="*" element={<PageNotFound />} />}
+        <Route element={<ProfileLayout/>}>
+          {isLogin?<Route path="/profile" element={<ProfileEmpty/>} />:<Route path="*" element={<PageNotFound />} />}
+          {isLogin?<Route path="/profile/calender" element={<SabteRooyadad />} />:<Route path="*" element={<PageNotFound />} />}
+          {isLogin?<Route path="/profile/report" element={<Report />} />:<Route path="*" element={<PageNotFound />} />}
+          {isLogin?<Route path="/profile/report/:_id" element={<Report />} />:<Route path="*" element={<PageNotFound />} />}
+          {isLogin?<Route path="/profile/events" element={<Events />} />:<Route path="*" element={<PageNotFound />} />}
+          {isLogin?<Route path="/getone" element={<GetOneList />} />:<Route path="*" element={<PageNotFound />} />}
+
+        <Route path="/create-event" element={<EventForm/>}/>
+        </Route>
+          
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );
-}
+  }
 
 export default App;

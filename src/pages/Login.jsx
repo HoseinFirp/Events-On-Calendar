@@ -9,6 +9,7 @@ function Login() {
   const [capVal, setCapVal] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username);
@@ -19,17 +20,18 @@ function Login() {
 
   const req = async () => {
     try {
-      const { data } = await axios.post("http://appback.liara.run/Login", {
+      const { data } = await axios.post("https://appback.liara.run/user/Login", {
         username: `${username}`,
         password: `${password}`,
       });
-      dispatch(updateToken(data.user.token));
-
-      console.log(data.user);
+      console.log(data);
+      dispatch(updateToken(data.token));
+      alert(' شما وارد شدید ')
     } catch (error) {
       console.log(error.response.data);
     }
   };
+
   return (
     <div
       className={`flex rounded-lg items-center flex-col  h-96 gap-5 w-96  mt-20  bg-slate-950 ml-auto mr-auto`}
@@ -58,6 +60,7 @@ function Login() {
           />
           <p className="flex self-center">پسورد </p>
         </div>
+
         {/* token inja bezar */}
         <ReCAPTCHA
           sitekey="6Lc-6FUpAAAAAO2j2J6ndH7L5Mbg9a_AcpDPsTuF"
