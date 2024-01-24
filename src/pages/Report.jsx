@@ -30,11 +30,14 @@ console.log(list)
             <button onClick={handleGetList} className="btn">show</button>
             {list?.map((data) => (
             <div
-              className={`bg-gradient-to-br from-purple-900 via-purple-800 to-blue-900  shadow-lg p-5 border-2 mt-5 rounded-xl cursor-pointer w-full grid `}
+              className={`bg-gradient-to-br opacity-90 from-purple-900 via-purple-800 to-blue-900  shadow-lg p-5 border-2 mt-5 rounded-xl cursor-pointer w-full grid `}
               key={data._id}
               onClick={() => navigate(`${data._id}`)}
-            >
-              <p className="text-white text-2xl font-semibold mb-4">متن : {data.text}</p>
+            ><div className="flex gap-5 justify-end">
+
+              <button className="btn text-stone-900 bg-red-500">X</button>
+            </div>
+              <p className="text-white text-2xl font-semibold -mt-10 mb-4">متن : {data.text}</p>
               <p className="text-white text-lg font-semibold mb-4">تاریخ : {data.date}</p>
 
             </div>
