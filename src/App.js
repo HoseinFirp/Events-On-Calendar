@@ -1,5 +1,5 @@
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./pages/Navbar";
@@ -35,7 +35,7 @@ function AppLayOut() {
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const user = useUser();
-
+console.log(user.token)
   useEffect(() => {
     if (user.token) {
       setIsLogin(true);
@@ -48,7 +48,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayOut />}>
-          <Route index element={<Home />} />
+          <Route index element={<Signup />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
         <Route element={<ProfileLayout/>}>

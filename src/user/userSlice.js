@@ -19,11 +19,15 @@ const userSlice = createSlice({
     },
     updateData(state, action) {
       state.data = action.payload;
-    },
+    },deleteItem(state, action) {
+      // payload = productId
+      state.data = state.data.filter(
+        (item) => item._id !== action.payload
+      )}
   },
 });
 
-export const { updateName, updateToken, updateData } = userSlice.actions;
+export const { updateName, updateToken, updateData,deleteItem } = userSlice.actions;
 
 export const useUser = () => useSelector((state) => state.user);
 

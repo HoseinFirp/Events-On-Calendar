@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { updateToken } from "../user/userSlice";
 
 const CountdownTimer = ({ initialSeconds }) => {
   const [seconds, setSeconds] = useState(initialSeconds);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     // Exit early if countdown is finished
     if (seconds <= 0) {
@@ -27,9 +29,15 @@ const CountdownTimer = ({ initialSeconds }) => {
     return `${minutes} : ${seconds}`;
   };
 
+  useEffect(() => {
+    if (!seconds) {
+      dispatch(updateToken(""));
+    }
+  }, [seconds]);
+
   return (
     <div>
-      <p className="text-3xl">{formatTime(seconds)}</p>
+      <p className="text-3xl bg-slate-800 p-3 rounded-md">{formatTime(seconds)}</p>
     </div>
   );
 };

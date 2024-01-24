@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 import EventForm from './EventForm';
+import Example from './CalendarFa';
 
 const MyCalendar = () => {
   const [date, setDate] = useState(new Date());
@@ -40,9 +41,9 @@ const MyCalendar = () => {
 
   return (
     
-      <div className="max-w-3xl mx-auto mt-60 p-4 bg-slate-800 rounded shadow-lg">
+      <div className="max-w-3xl mx-auto mt-10 p-4 bg-slate-800 rounded shadow-lg">
         
-        <div className="bg-slate-700 p-4 rounded">
+        <div className="bg-slate-700 p-4 rounded-lg">
           <Calendar
             onChange={handleDateChange}
             value={date}
@@ -50,6 +51,7 @@ const MyCalendar = () => {
             events={events} // Pass your events data to the Calendar component
             className="border p-2"
           />
+          {/* <Example /> */}
         </div>  
         <Link path="/create-event">
           <EventForm date={date} onCreateEvent={handleCreateEvent} />
