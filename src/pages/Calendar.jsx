@@ -43,15 +43,15 @@ const MyCalendar = () => {
     
       <div className="max-w-3xl mx-auto mt-10 p-4 bg-slate-800 rounded shadow-lg">
         
-        <div className="bg-slate-700 p-4 rounded-lg">
-          <Calendar
+        <div className="bg-slate-700 p-4 flex flex-col gap-1 self-center rounded-lg">
+          {/* <Calendar
             onChange={handleDateChange}
             value={date}
             onClickDay={handleEventClick}
             events={events} // Pass your events data to the Calendar component
             className="border p-2"
-          />
-          {/* <Example /> */}
+          /> */}
+          <Example />
         </div>  
         <Link path="/create-event">
           <EventForm date={date} onCreateEvent={handleCreateEvent} />

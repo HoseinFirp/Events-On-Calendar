@@ -32,8 +32,8 @@ const user = useUser()
     // onCreateEvent(newEvent);
     
     return (
-        <div className="max-w-2xl mx-auto mt-8 p-4 bg-slate-700 rounded shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">ثبت گزارش</h2><div>{`${date}`}</div>
+        <div className="max-w-2xl w-96 mx-auto mt-8 p-4 bg-slate-700 rounded shadow-lg">
+      <h2 className="text-2xl font-bold mb-4">ثبت گزارش</h2>
       <div className="mb-4">
         <label className="block text-sm font-medium pt-5 pb-2 text-gray-400">سر تیتر</label>
         <input

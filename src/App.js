@@ -16,13 +16,7 @@ import ProfileSidebar from "./pages/ProfileSidebar";
 import ProfileEmpty from "./pages/ProfileEmpty";
 import GetOneList from "./pages/GetOneList";
 
-function ProfileLayout() {
-  return (
-    <div className="flex ">
-      <ProfileSidebar />
-    </div>
-  );
-}
+
 function AppLayOut() {
   return (
     <div>
@@ -33,9 +27,18 @@ function AppLayOut() {
 }
 
 function App() {
+
   const [isLogin, setIsLogin] = useState(false);
   const user = useUser();
-console.log(user.token)
+
+function ProfileLayout() {
+  return (
+    <div className="flex ">
+     {user.token?
+      <ProfileSidebar />:null}
+    </div>
+  );
+}
   useEffect(() => {
     if (user.token) {
       setIsLogin(true);
