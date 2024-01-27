@@ -3,16 +3,23 @@ import React, { useState } from "react";
 import { useUser } from "../user/userSlice";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Tools/Loader";
+import Warning from "../Tools/Warning";
+import OkText from "../Tools/OkText";
 
 const EventForm = ({ date }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [warning, setWarning] = useState(false);
+  const [OkText1,setOkText1] = useState(false)
+
   const navigate = useNavigate();
 
   const user = useUser();
   const handleCreateEvent = async () => {
     setLoading(true);
+    setWarning(false)
+    setOkText1(false)
 
     try {
       const response = await axios.post(
@@ -24,22 +31,29 @@ const EventForm = ({ date }) => {
         },
         { headers: { authorization: `Bearer ${user.token}` } }
       );
+      setOkText1(true)
+
       setTitle("");
       setDescription("");
       alert(`${response.data.message}`);
       setLoading(false);
       navigate("/profile/report");
     } catch (error) {
+      setWarning(true);
       console.error("Error fetching events:", error);
       setLoading(false);
 
-      alert("مشکلی بوجود آمده... دوباره تلاش کنید");
     }
   };
 
   // onCreateEvent(newEvent);
 
-  return (
+  return (<>{warning?
+    <Warning
+      children={"مشکلی بوجود آمده... دوباره تلاش کنید"}
+    />
+  :OkText1?<OkText children={"مشکلی بوجود آمده... دوباره تلاش کنید"}/>:null
+}
     <div className="max-w-2xl w-96 mx-auto mt-8 p-4 bg-slate-700 rounded shadow-lg">
       <h2 className="text-2xl flex justify-center font-bold mb-4">ثبت گزارش</h2>
       <div className="mb-4">
@@ -61,20 +75,21 @@ const EventForm = ({ date }) => {
           className="mt-1 p-2 w-full border rounded-md"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-        />
+          />
       </div>
       {loading ? (
         <Loader />
-      ) : (
-        <button
+        ) : (
+          <button
           disabled={!title || !description || !date}
           className="btn bg-blue-500  text-white border-none px-4 py-2 rounded hover:bg-blue-700"
           onClick={handleCreateEvent}
-        >
+          >
           ثبت گزارش
         </button>
       )}
     </div>
+          </>
   );
 };
 
