@@ -35,7 +35,7 @@ const EventForm = ({ date }) => {
 
       setTitle("");
       setDescription("");
-      alert(`${response.data.message}`);
+      // alert(`${response.data.message}`);
       setLoading(false);
       navigate("/profile/report");
     } catch (error) {
@@ -52,7 +52,7 @@ const EventForm = ({ date }) => {
     <Warning
       children={"مشکلی بوجود آمده... دوباره تلاش کنید"}
     />
-  :OkText1?<OkText children={"مشکلی بوجود آمده... دوباره تلاش کنید"}/>:null
+  :OkText1?<OkText children={"گزارش اضافه شد"}/>:null
 }
     <div className="max-w-2xl w-96 mx-auto mt-8 p-4 bg-slate-700 rounded shadow-lg">
       <h2 className="text-2xl flex justify-center font-bold mb-4">ثبت گزارش</h2>
