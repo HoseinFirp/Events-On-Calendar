@@ -41,14 +41,14 @@ const navigate = useNavigate()
       navigate('/profile')
     } catch (error) {
       setLoading(false)
-      setWarning(true);
-
+      setWarning(error.response.data.message);
+      console.log(error.response.data.message)
     }
   };
 
   return (<>{warning?
     <Warning
-      children={"مشکلی بوجود آمده... دوباره تلاش کنید"}
+      children={`${warning}`}
     />
   :OkText1?<OkText children={" شما وارد شدید "}/>:null
 }
@@ -98,7 +98,7 @@ const navigate = useNavigate()
         disabled={!capVal || !username || !password}
         onClick={req}
         >
-          <Link to="/profile">ادامه</Link>
+          <Link >ادامه</Link>
         </button>}
       </form>
     </div>

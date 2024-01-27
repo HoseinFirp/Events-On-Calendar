@@ -52,10 +52,10 @@ function Signup() {
       setLoading(false);
       navigate("/login");
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response.data.messages[0]);
       // alert(error.response.data.message);
       setLoading(false);
-      setWarning(true);
+      setWarning(error.response.data.messages[0]);
 
     }
     // setIsLoading(false);
@@ -63,7 +63,7 @@ function Signup() {
 
   return (<>{warning?
     <Warning
-      children={"مشکلی بوجود آمده... دوباره تلاش کنید"}
+      children={`${warning}`}
     />
   :OkText1?<OkText children={"حساب کاربری ساخته شد"}/>:null
   }
@@ -123,7 +123,7 @@ function Signup() {
             }
             onClick={req}
           >
-            <Link to="/profile">ادامه</Link>
+            <Link >ادامه</Link>
           </button>
         )}
       </form>

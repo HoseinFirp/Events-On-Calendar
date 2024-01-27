@@ -39,7 +39,7 @@ const EventForm = ({ date }) => {
       setLoading(false);
       navigate("/profile/report");
     } catch (error) {
-      setWarning(true);
+      setWarning(error.message);
       console.error("Error fetching events:", error);
       setLoading(false);
 
