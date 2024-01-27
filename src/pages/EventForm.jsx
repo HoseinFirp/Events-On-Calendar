@@ -1,15 +1,19 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { useUser } from '../user/userSlice';
+import axios from "axios";
+import React, { useState } from "react";
+import { useUser } from "../user/userSlice";
+import { useNavigate } from "react-router-dom";
+import Loader from "../Tools/Loader";
 
-const EventForm = ({ date, onCreateEvent }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-//   const [date, setDate] = useState(new Date());
+const EventForm = ({ date }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-const user = useUser()
-
+  const user = useUser();
   const handleCreateEvent = async () => {
+    setLoading(true);
+
     try {
       const response = await axios.post(
         "https://appback.liara.run/user/createList",
@@ -20,46 +24,58 @@ const user = useUser()
         },
         { headers: { authorization: `Bearer ${user.token}` } }
       );
-      console.log(response);
-      setTitle('')
-      setDescription('')
-      alert(`${response.data.message}`)
+      setTitle("");
+      setDescription("");
+      alert(`${response.data.message}`);
+      setLoading(false);
+      navigate("/profile/report");
     } catch (error) {
       console.error("Error fetching events:", error);
+      setLoading(false);
+
+      alert("مشکلی بوجود آمده... دوباره تلاش کنید");
     }
   };
 
-    // onCreateEvent(newEvent);
-    
-    return (
-        <div className="max-w-2xl w-96 mx-auto mt-8 p-4 bg-slate-700 rounded shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">ثبت گزارش</h2>
+  // onCreateEvent(newEvent);
+
+  return (
+    <div className="max-w-2xl w-96 mx-auto mt-8 p-4 bg-slate-700 rounded shadow-lg">
+      <h2 className="text-2xl flex justify-center font-bold mb-4">ثبت گزارش</h2>
       <div className="mb-4">
-        <label className="block text-sm font-medium pt-5 pb-2 text-gray-400">سر تیتر</label>
+        <label className=" text-sm font-medium flex justify-end pt-5 pb-2 text-gray-400">
+          سر تیتر
+        </label>
         <input
           type="text"
           className="mt-1 p-2 w-full border rounded-md"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          />
+        />
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium  pt-2 pb-2 text-gray-400">متن</label>
+        <label className=" text-sm font-medium flex justify-end  pt-2 pb-2 text-gray-400">
+          متن
+        </label>
         <textarea
           className="mt-1 p-2 w-full border rounded-md"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          />
+        />
       </div>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-        onClick={handleCreateEvent}
+      {loading ? (
+        <Loader />
+      ) : (
+        <button
+          disabled={!title || !description || !date}
+          className="btn bg-blue-500  text-white border-none px-4 py-2 rounded hover:bg-blue-700"
+          onClick={handleCreateEvent}
         >
-        ثبت گزارش
-      </button>
+          ثبت گزارش
+        </button>
+      )}
     </div>
   );
 };
-
 
 export default EventForm;

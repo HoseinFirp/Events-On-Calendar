@@ -3,8 +3,8 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-export default function Example() {
-  const [value, setValue] = useState();
+export default function Example({ date }) {
+  const [value, setValue] = useState(date);
 
   return (
     <>
@@ -15,7 +15,15 @@ export default function Example() {
         locale={persian_fa}
         calendarPosition="bottom-right"
       />
-      <p>{value?.toDate?.().toString()}</p>
+      <div className="flex gap-16">
+        <p>{value?.toDate?.().toString().slice(0, 15)}</p>
+        <div className="flex gap-1">
+          <p>{value?.year}</p>
+          <p>{value?.month?.name}</p>
+          <p>{value?.day}</p>
+          <p>{value?.weekDay?.name}</p>
+        </div>
+      </div>
     </>
   );
 }

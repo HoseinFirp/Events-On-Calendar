@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateToken, useUser } from "../user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const CountdownTimer = ({ initialSeconds }) => {
   const [seconds, setSeconds] = useState(initialSeconds);
   const [turnOn, setTurnOn] = useState(true);
   const dispatch = useDispatch();
-
+const navigate = useNavigate()
   useEffect(() => {
     // Exit early if countdown is finished
     if (turnOn) {
@@ -22,7 +23,7 @@ const CountdownTimer = ({ initialSeconds }) => {
       // Clean up the timer
       return () => clearInterval(timer);
     }
-  }, [seconds]);
+  }, [seconds,turnOn]);
 
   // Format the remaining time (e.g., “00:05:10” for 5 minutes and 10 seconds)
   const formatTime = (timeInSeconds) => {
@@ -37,6 +38,7 @@ const CountdownTimer = ({ initialSeconds }) => {
     if (!seconds) {
       dispatch(updateToken(""));
       setTurnOn(false);
+      navigate('/login')
     }
   }, [seconds]);
 

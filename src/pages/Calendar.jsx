@@ -51,7 +51,7 @@ const MyCalendar = () => {
             events={events} // Pass your events data to the Calendar component
             className="border p-2"
           /> */}
-          <Example />
+          <Example date={date} />
         </div>  
         <Link path="/create-event">
           <EventForm date={date} onCreateEvent={handleCreateEvent} />

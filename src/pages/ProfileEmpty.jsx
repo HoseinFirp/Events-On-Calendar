@@ -1,6 +1,6 @@
 function ProfileEmpty() {
     return (
-        <div>
+        <div className="mt-5">
             به پروفایل خود خوش آمدید
         </div>
     )

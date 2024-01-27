@@ -1,5 +1,4 @@
 import { Link, Outlet } from "react-router-dom";
-import MyCalendar from "./Calendar";
 import CountdownTimer from "./CountDown";
 
 function ProfileSidebar() {

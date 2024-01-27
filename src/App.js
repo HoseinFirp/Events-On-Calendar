@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./pages/Navbar";
 import Signup from "./pages/Signup";
@@ -61,8 +60,7 @@ function ProfileLayout() {
           {isLogin?<Route path="/profile/report/:_id" element={<Report />} />:<Route path="*" element={<PageNotFound />} />}
           {isLogin?<Route path="/profile/events" element={<Events />} />:<Route path="*" element={<PageNotFound />} />}
           {isLogin?<Route path="/getone" element={<GetOneList />} />:<Route path="*" element={<PageNotFound />} />}
-
-        <Route path="/create-event" element={<EventForm/>}/>
+          {/* <Route path="/create-event" element={<EventForm/>}/> */}
         </Route>
           
         </Route>

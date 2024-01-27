@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Loader from "../Tools/Loader";
 // import { updateToken } from "../user/userSlice";
 // import { useDispatch } from "react-redux";
 
@@ -11,13 +12,9 @@ function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  // const [showError, setShowError] = useState("");
-  // const [isDisabled3, setIsDisabled3] = useState(true);
-  // const [showError1, setShowError1] = useState();
-  // const [isDisabled5, setIsDisabled5] = useState(true);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [showError2, setShowError2] = useState();
   const [equalPass, setEqualPass] = useState();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,32 +28,25 @@ function Signup() {
     }
   }, [password, rePassword]);
 
-
-
   const req = async () => {
-    // setShowError("");
-    // setIsLoading(true);
-    // if (password !== rePassword) {
-      // setIsDisabled3(true);
-    //   alert(`Your Re-Password does not match with Your Password`);
-    // }
-    // else setShowError1("");
-    
-    console.log(username,password,rePassword)
+    setLoading(true);
     try {
-      const { data } = await axios.post("https://appback.liara.run/user/Signup", {
-        username: `${username}`,
-        password: `${password}`,
-        confirmPassword: `${rePassword}`,
-      });
+      const { data } = await axios.post(
+        "https://appback.liara.run/user/Signup",
+        {
+          username: `${username}`,
+          password: `${password}`,
+          confirmPassword: `${rePassword}`,
+        }
+      );
       console.log(data);
-      // setIsDisabled5(false);
-      alert("User Created");
+      alert("حساب کاربری ساخته شد");
+      setLoading(false);
+      navigate("/login");
     } catch (error) {
-
       console.log(error.response.data);
-      // setIsDisabled5(true);
       alert(error.response.data.message);
+      setLoading(false);
     }
     // setIsLoading(false);
   };
@@ -95,7 +85,7 @@ function Signup() {
           />
           <p className="flex self-center">تکرار پسورد </p>
         </div>
-        
+
         {/* inja token begzarid */}
         <ReCAPTCHA
           sitekey="6Lc-6FUpAAAAAO2j2J6ndH7L5Mbg9a_AcpDPsTuF"
@@ -107,16 +97,20 @@ function Signup() {
           </button>
           <p className="text-sm ">آیا از قبل حساب کاربری داشتید؟</p>
         </div>
-        <button
-          type="submit"
-          className="btn"
-          disabled={
-            !capVal || !username || !password || !rePassword || !equalPass
-          }
-          onClick={req}
-        >
-          <Link to="/profile">ادامه</Link>
-        </button>
+        {loading ? (
+          <Loader />
+        ) : (
+          <button
+            type="submit"
+            className="btn"
+            disabled={
+              !capVal || !username || !password || !rePassword || !equalPass
+            }
+            onClick={req}
+          >
+            <Link to="/profile">ادامه</Link>
+          </button>
+        )}
       </form>
     </div>
   );

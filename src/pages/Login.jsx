@@ -1,34 +1,37 @@
 import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { updateToken } from "../user/userSlice";
+import Loader from "../Tools/Loader";
 
 function Login() {
   const [capVal, setCapVal] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading,setLoading]=useState(false)
 
+const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username);
-    console.log(password);
   };
 
   const dispatch = useDispatch();
 
   const req = async () => {
+    setLoading(true)
     try {
       const { data } = await axios.post("https://appback.liara.run/user/Login", {
         username: `${username}`,
         password: `${password}`,
       });
-      console.log(data);
       dispatch(updateToken(data.token));
       alert(' شما وارد شدید ')
+      setLoading(false)
+      navigate('/profile')
     } catch (error) {
-      console.log(error.response.data);
+      setLoading(false)
     }
   };
 
@@ -72,13 +75,15 @@ function Login() {
           </button>
           <p className="text-sm mt-1">آیا حساب کاربری ندارید؟</p>
         </div>
+        
+        {loading?<Loader/>:
         <button
           className="btn mt-3"
           disabled={!capVal || !username || !password}
           onClick={req}
         >
           <Link to="/profile">ادامه</Link>
-        </button>
+        </button>}
       </form>
     </div>
   );

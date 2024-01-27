@@ -1,21 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useSelector } from "react-redux";
-// import { getDefaultMiddleware } from '@reduxjs/toolkit';
-// const customizedMiddleware = getDefaultMiddleware({
-//   serializableCheck: false
-// })
+import { Ren, ren } from "../pages/Report";
+
 const initialState = {
   username: "",
   token: "",
   data: {},
 };
 
-const fetchDeleteItem = createAsyncThunk(
+ const fetchDeleteItem = createAsyncThunk(
   "user/fetchDeleteItem",
   async (payload , {getState}) => {
-    console.log("id:",payload);
-    console.log("token:",getState().user.token)
     try {
       const response = await axios.delete(
         `https://appback.liara.run/user/DeleteList/${payload}`,
@@ -23,8 +19,6 @@ const fetchDeleteItem = createAsyncThunk(
         { headers: { authorization: `Bearer ${getState().user.token}` } }
       );
       console.log(response);
-      // setList(response.data);
-      //   alert(`${response.data.message}`)
     } catch (error) {
       console.error("Error fetching events:", error);
     }
